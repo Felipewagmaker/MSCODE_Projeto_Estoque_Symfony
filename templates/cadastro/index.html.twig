@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="border-bottom mb-2">
+    <div class="container">
+      <header class="d-flex flex-wrap justify-content-center align-items-center py-3">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+          <span class="fs-4">Symfony</span>
+        </a>
+      </header>
+    </div>
+  </div>
+
+  <div class="container py-5">
+    <div class="mb-4">
+      <h1>Nova categoria</h1>
+    </div>
+
+    <div class="w-50 mt-2">
+      {% include "mensagens.html.twig" %}
+      <form action="{{ path('cadastrar_categoria_salvar') }}" method="POST">
+        <div class="mb-3">
+          <label for="nome" class="form-label">Nome:</label>
+          <input type="text" class="form-control" id="nome" name="nome" minlength="3" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
