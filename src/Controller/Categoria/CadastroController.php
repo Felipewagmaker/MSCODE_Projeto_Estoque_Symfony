@@ -15,7 +15,7 @@ class CadastroController extends AbstractController
         private CategoriaRepository $categoriaRepository,
     ) {}
 
-    #[Route('categorias/cadastrar', name: 'cadastrar_categoria_show', methods: 'GET')]
+    #[Route('categoria/cadastrar', name: 'cadastrar_categoria_show', methods: 'GET')]
     public function show(): Response
     {
         return $this->render('app/categoria/cadastrar.html.twig');
