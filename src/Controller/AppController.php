@@ -12,6 +12,9 @@ class AppController extends AbstractController
 {
     public function __invoke(Request $request): Response
     {
-        return $this->render('app/index.html.twig');
+        return $this->render('app/index.html.twig', [
+            'headTitle' => '- App',
+            'active' => 'inicio',
+        ]);
     }
 }

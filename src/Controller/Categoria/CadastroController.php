@@ -15,10 +15,18 @@ class CadastroController extends AbstractController
         private CategoriaRepository $categoriaRepository,
     ) {}
 
-    #[Route('categoria/cadastrar', name: 'cadastrar_categoria_show', methods: 'GET')]
+    #[Route('categorias/cadastrar', name: 'cadastrar_categoria_show', methods: 'GET')]
     public function show(): Response
     {
-        return $this->render('app/categoria/cadastrar.html.twig');
+        return $this->render('app/categoria/cadastrar.html.twig', [
+            'headTitle' => '- Categorias',
+            'title' => 'Nova',
+            'active' => 'produtos',
+            'cadastrar' => true,
+            'title' => 'Nova',
+            'nome' => '',
+            'editOrSave' => 'salvar'
+        ]);
     }
 
     #[Route('categorias/cadastrar', name: 'cadastrar_categoria_salvar', methods: 'POST')]
@@ -33,7 +41,6 @@ class CadastroController extends AbstractController
         $categoriaExistente = $this->categoriaRepository->findBy(['nome' => $nomeCategoria]);
         if ($categoriaExistente) {
             $this->addFlash('danger', "Categoria com nome \"{$nomeCategoria}\" já existe!");
-
             return $this->redirectToRoute('cadastrar_categoria_show');
         }
 
@@ -42,6 +49,6 @@ class CadastroController extends AbstractController
 
         $this->categoriaRepository->salvar($categoria);
 
-        return new Response();
+        return $this->redirectToRoute('listar_categorias');
     }
 }

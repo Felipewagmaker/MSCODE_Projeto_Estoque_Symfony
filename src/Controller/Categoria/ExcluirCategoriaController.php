@@ -1,18 +1,34 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Categoria;
 
+use App\Repository\CategoriaRepository;
+use App\Repository\ProdutoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class ExcluirCategoriaController extends AbstractController
 {
-    #[Route('/excluir/categoria', name: 'app_excluir_categoria')]
-    public function index(): Response
+
+    public function __construct(
+        private CategoriaRepository $categoriaRepository,
+        private ProdutoRepository $produtoRepository,
+    ){}
+
+    #[Route('/categoria/excluir/{id}', name: 'excluir_categoria')]
+    public function index(int|string $id): Response
     {
-        return $this->render('excluir_categoria/index.html.twig', [
-            'controller_name' => 'ExcluirCategoriaController',
-        ]);
+        $categoria = $this->categoriaRepository->find($id);
+        
+        $produtoExiste = $this->produtoRepository->findOneBy(['categoria_id' => $categoria]);
+
+        if ($produtoExiste){
+            $this->addFlash('danger','Existem produtos vinculados a esta categoria');
+        }else {
+            $this->categoriaRepository->excluir($categoria);
+        }
+
+        return $this->redirectToRoute('listar_categorias');
     }
 }
