@@ -23,7 +23,7 @@ class EditarProdutoEstoqueController extends AbstractController
         $produto = $this->produtoRepository->findBy(['id' => $id])[0];
         $categorias = $this->categoriaRepository->findAll();
 
-        return $this->render('app/produto/cadastrar_editar.html.twig', [
+        return $this->render('app/estoque/cadastro_produto.html.twig', [
             'headTitle' => '- Produtos',
             'active' => 'produtos',
             'title' => 'Editar',

@@ -19,7 +19,7 @@ class EditarCategoriaController extends AbstractController
     {
         $categoria = $this->categoriaRepository->find($id);
 
-        return $this->render('app/categoria/cadastrar_editar.html.twig', [
+        return $this->render('app/categoria/cadastrar.html.twig', [
             'headTitle' => '- Categorias',
             'active' => 'produtos',
             'cadastrar' => false,

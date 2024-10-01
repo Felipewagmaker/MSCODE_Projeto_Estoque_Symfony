@@ -14,7 +14,7 @@ class VenderProdutoEstoqueController extends AbstractController
         private ProdutoRepository $produtoRepository,
     ){}
 
-    #[Route('/produto/vender/{id}', name: 'vender_produto')]
+    #[Route('/produto/vender/{id}', name: 'vender_produto', methods: 'GET')]
     public function index(int|string $id): Response
     {
         $produto = $this->produtoRepository->find($id);
