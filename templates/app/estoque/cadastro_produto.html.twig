@@ -1,0 +1,53 @@
+{% extends 'paginasapp.html.twig' %}
+
+{% block content %}
+  <div class="container py-5">
+    <div class="mb-4">
+      <h1>
+        {{ title }}
+        produto
+      </h1>
+    </div>
+    <div class="w-50 mt-2">
+      {% include 'mensagens.html.twig' %}
+      <form action="{{ cadastrar ? path('cadastrar_produto_salvar') : path('editar_produto_salvar',
+      { id: produto.id }) }}" method="POST">
+        <div class="mb-3">
+          <label for="nome" class="form-label">Nome:</label>
+          <input type="text" class="form-control" id="nome" name="nome" value="{{ cadastrar ? '' : produto.nome }}" />
+        </div>
+        <div class="mb-3">
+          <label for="descricao" class="form-label">Descrição:</label>
+          <textarea class="form-control" id="descricao" name="descricao" style="resize:none;" rows="5">{{ cadastrar ? '' : produto.descricao }}</textarea>
+        </div>
+        <div class="row">
+          <div class="mb-3 col-4">
+            <label for="categoriaId" class="form-label">Categoria:</label>
+            <select class="form-select" aria-label="Default select example" name="categoriaId" id="categoriaId">
+              {% for categoria in categorias %}
+                {% if cadastrar == false %}
+                  {% if categoria.id == produto.getCategoriaId.getId %}
+                    <option value="{{ categoria.id }}" selected>{{ categoria.nome }}</option>
+                  {% else %}
+                    <option value="{{ categoria.id }}">{{ categoria.nome }}</option>
+                  {% endif %}
+                {% else %}
+                  <option value="{{ categoria.id }}">{{ categoria.nome }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3 col-4">
+            <label for="quantidade" class="form-label">Quantidade:</label>
+            <input type="number" class="form-control" id="quantidade" name="quantidade" value="{{ cadastrar ? '' : produto.getQuantidadeDisponivel }}" {{ cadastrar ? '' : 'disabled style="background-color: #b1b1b1"' }} />
+          </div>
+          <div class="mb-3 col-4">
+            <label for="valor" class="form-label">Valor:</label>
+            <input type="text" class="form-control" id="valor" name="valor" value="{{ cadastrar ? '' : produto.valor }}" />
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">{{ cadastrar ? 'Salvar' : 'Atualizar' }}</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
