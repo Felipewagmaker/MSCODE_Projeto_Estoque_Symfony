@@ -1,0 +1,43 @@
+{% extends "paginasapp.html.twig" %}
+
+{% block title %}Nova Venda - MS Code{% endblock %}
+
+{% block content %}
+<main class="container">
+    <h2 class="my-4">Nova Venda</h2>
+
+    <form method="POST" action="{{ path('nova_venda_confirmar') }}">
+        <div class="mb-3">
+            <label for="categoria" class="form-label">Categoria</label>
+            <select id="categoria" name="categoria" class="form-select" required>
+                <option value="">Selecione uma categoria</option>
+                {% for categoria in categorias %}
+                    <option value="{{ categoria.id }}">{{ categoria.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="produto" class="form-label">Produto</label>
+            <select id="produto" name="produto" class="form-select" required>
+                <option value="">Selecione um produto</option>
+                {% for produto in produtos %}
+                    <option value="{{ produto.id }}">{{ produto.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="quantidade" class="form-label">Quantidade</label>
+            <input type="number" id="quantidade" name="quantidade" class="form-control" min="1" max="{{ produto.quantidade_disponivel }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="valor_total" class="form-label">Valor Total</label>
+            <input type="text" id="valor_total" class="form-control" value="{{ produto.valor * quantidade }}" readonly>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Confirmar Venda</button>
+    </form>
+</main>
+{% endblock %}

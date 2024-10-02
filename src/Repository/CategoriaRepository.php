@@ -24,7 +24,7 @@ class CategoriaRepository extends ServiceEntityRepository
 
     public function excluir(Categoria $categoria): void
     {
-        $this->getEntityManager()->persist($categoria);
+        $this->getEntityManager()->remove($categoria);
         $this->getEntityManager()->flush();
     }
 }
